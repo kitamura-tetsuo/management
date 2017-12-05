@@ -1,0 +1,56 @@
+function doGet(e) {
+  Logger.log(e);
+  createEvent(e.parameter.title);
+}
+
+function Test() {
+  createEvent("test");
+}
+
+function createEvent(title) {
+  var calendarName = "";
+  if (calendarName == "")
+  {
+    calendarName == "仕事";
+  }
+  
+  var calendar = CalendarApp.getCalendarsByName(calendarName)[0];
+  var start = Moment.moment();
+  start.add(1, "d").hours(10).minutes(0).seconds(0).milliseconds(0);
+  while (start.day() == 0 || start.day() == 6)
+  {
+    start.add(1, "d")
+  }
+  var end = start.clone().add(15, "m");
+  
+  calendar.createEvent(title, start.toDate(), end.toDate());
+}
+
+
+function MoveAllEvents() {
+  var work = CalendarApp.getCalendarsByName("仕事")[0];
+  var calendar = CalendarApp.getCalendarsByName(".")[0];
+  calendar.setHidden(true);
+  
+  var start = Moment.moment("1900/01/01");
+  var end = Moment.moment("3000/01/01");
+  
+  
+  var events = calendar.getEvents(start.toDate(), end.toDate());
+  for each (var event in events)
+  {
+    if(event.isRecurringEvent())
+    {
+    }
+    else if(event.isAllDayEvent())
+    {
+      work.createAllDayEvent(event.getTitle(), event.getAllDayStartDate(), event.getAllDayEndDate(), {description: event.getDescription()});
+      event.deleteEvent();
+    }
+    else
+    {
+      work.createEvent(event.getTitle(), event.getStartTime(), event.getEndTime(), {description: event.getDescription()});
+      event.deleteEvent();
+    }
+  }
+}
