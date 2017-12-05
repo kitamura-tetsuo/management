@@ -1,0 +1,28 @@
+javascript: (function() {
+    var caretOffset = 0;
+    var doc = document;
+    var window = document.defaultView || document.parentWindow;
+    var selection = window.getSelection();
+    
+    var project = selection.focusNode.parentNode.parentNode.parentNode;
+    var calender_title = project.firstChild.innerText.trim();
+
+    while(project.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.classList.contains("project"))
+    {
+        project = project.parentNode.parentNode;
+        calender_title += " - " + project.firstChild.innerText.trim();
+    }
+    
+    var url = 'https://script.google.com/macros/s/ID/exec?title=' + encodeURIComponent(calender_title);
+    w = window.open(url);
+    w.blur();
+    
+    var millis = 1000;
+    
+    var date = new Date();
+    var curDate = null;
+    do { curDate = new Date(); }
+    while(curDate-date < millis);
+    
+    w.close();
+})();
