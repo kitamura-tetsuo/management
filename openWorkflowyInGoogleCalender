@@ -1,1 +1,19 @@
+javascript: (function() {
+    var element = document.getElementsByClassName('TOTjfb');
+    var frm = document.createElement('iframe');
+    frm.setAttribute("src", "https://workflowy.com/#/ID");
+    frm.setAttribute("width", "50%");
+    frm.setAttribute("height", "100%");
+    element[0].appendChild(frm);
+//    var prev = document.getElementById('YPCqFe');
+//    element[0].insertBefore(frm, document.getElementById('YPCqFe'));
 
+
+    var element = document.getElementsByClassName('TOTjfb');
+    var frm = document.createElement('iframe');
+    frm.setAttribute("src", "https://workflowy.com/#/ID?q=%40");
+    frm.setAttribute("width", "50%");
+    frm.setAttribute("height", "100%");
+    element[0].appendChild(frm);
+    
+})();
